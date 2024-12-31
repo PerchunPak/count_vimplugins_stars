@@ -45,7 +45,12 @@ pub fn read_input_file(input_file: String) -> List(String) {
 pub fn read_output_file(
   output_file: String,
 ) -> Result(dict.Dict(String, Int), json.DecodeError) {
-  let assert Ok(output) = read_file(output_file)
+  let output = {
+    case read_file(output_file) {
+      Ok(res) -> res
+      Error(_) -> "{}"
+    }
+  }
   let decoder = dynamic.dict(dynamic.string, dynamic.int)
 
   json.decode(output, decoder)
