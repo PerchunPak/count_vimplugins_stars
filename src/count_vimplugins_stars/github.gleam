@@ -2,6 +2,7 @@ import gleam/dynamic.{field}
 import gleam/hackney
 import gleam/http
 import gleam/http/request
+import gleam/io
 import gleam/json
 import gleam/result
 import gleam/string
@@ -27,10 +28,10 @@ pub fn parse_plugin_url(url: String) -> Result(PluginInfo, String) {
 
       case string.split(strip2, "/") {
         [owner, repo] -> Ok(PluginInfo(owner, repo))
-        _ -> Error("too few/too many elements after split")
+        _ -> Error(url <> ": too few/too many elements after split")
       }
     }
-    False -> Error("not a gh repo")
+    False -> Error(url <> ": not a gh repo")
   }
 }
 

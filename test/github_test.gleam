@@ -16,19 +16,23 @@ pub fn parse_plugin_url_ok_trailing_slash_test() {
 pub fn parse_plugin_url_error_not_gh_test() {
   github.parse_plugin_url("https://gitlab.com/aaa/bbb")
   |> should.be_error()
-  |> should.equal("not a gh repo")
+  |> should.equal("https://gitlab.com/aaa/bbb: not a gh repo")
 }
 
 pub fn parse_plugin_url_error_too_few_test() {
   github.parse_plugin_url("https://github.com/aaa")
   |> should.be_error()
-  |> should.equal("too few/too many elements after split")
+  |> should.equal(
+    "https://github.com/aaa: too few/too many elements after split",
+  )
 }
 
 pub fn parse_plugin_url_error_too_many_test() {
   github.parse_plugin_url("https://github.com/aaa/bbb/ccc")
   |> should.be_error()
-  |> should.equal("too few/too many elements after split")
+  |> should.equal(
+    "https://github.com/aaa/bbb/ccc: too few/too many elements after split",
+  )
 }
 
 // pub fn fetch_test() {
