@@ -1,4 +1,5 @@
 import count_vimplugins_stars/logic.{do_work}
+import envoy
 import glint
 
 pub fn cmd() -> glint.Command(Nil) {
@@ -13,6 +14,7 @@ pub fn cmd() -> glint.Command(Nil) {
   let input_file = input_file_arg(named_args)
   let output_file = output_file_arg(named_args)
 
-  let _ = do_work(input_file, output_file)
+  let assert Ok(github_token) = envoy.get("GITHUB_TOKEN")
+  let _ = do_work(input_file, output_file, github_token)
   Nil
 }
