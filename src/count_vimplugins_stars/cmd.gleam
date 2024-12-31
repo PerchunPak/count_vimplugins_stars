@@ -13,6 +13,6 @@ pub fn cmd() -> glint.Command(Nil) {
   let input_file = input_file_arg(named_args)
   let output_file = output_file_arg(named_args)
 
-  do_work(input_file, output_file)
+  let _ = do_work(input_file, output_file)
   Nil
 }

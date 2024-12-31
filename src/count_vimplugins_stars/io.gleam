@@ -1,3 +1,6 @@
+import gleam/dict
+import gleam/dynamic
+import gleam/json
 import gleam/list
 import gleam/string
 import gsv
@@ -25,7 +28,7 @@ pub fn read_file(path: String) -> Result(String, String) {
   }
 }
 
-pub fn read_input_file(input_file: String) {
+pub fn read_input_file(input_file: String) -> List(String) {
   let assert Ok(input) = read_file(input_file)
   let assert Ok(rows) =
     string.drop_start(input, string.length("repo,branch,alias\n"))
@@ -37,4 +40,29 @@ pub fn read_input_file(input_file: String) {
     [repo, ..] -> repo
     _ -> panic
   }
+}
+
+pub fn read_output_file(
+  output_file: String,
+) -> Result(dict.Dict(String, Int), json.DecodeError) {
+  let assert Ok(output) = read_file(output_file)
+  let decoder = dynamic.dict(dynamic.string, dynamic.int)
+
+  json.decode(output, decoder)
+}
+
+pub fn write_output_file(
+  output_file: String,
+  to_write: dict.Dict(String, Int),
+) -> Result(Nil, simplifile.FileError) {
+  let as_str =
+    dict.to_list(to_write)
+    |> list.map(fn(x) {
+      let #(k, v) = x
+      #(k, json.int(v))
+    })
+    |> json.object
+    |> json.to_string
+
+  let assert Ok(_) = simplifile.write(as_str, to: output_file)
 }
