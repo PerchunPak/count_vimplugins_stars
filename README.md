@@ -1,24 +1,15 @@
 # count_vimplugins_stars
 
-[![Package Version](https://img.shields.io/hexpm/v/count_vimplugins_stars)](https://hex.pm/packages/count_vimplugins_stars)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/count_vimplugins_stars/)
+Count stars of all Vim plugins in nixpkgs. Just a one time script, see the
+result in `result.json`.
 
+Regenerate results:
 ```sh
-gleam add count_vimplugins_stars@1
-```
-```gleam
-import count_vimplugins_stars
-
-pub fn main() {
-  // TODO: An example of the project in use
-}
+GITHUB_TOKEN=(rbw get 'GitHub CLI token') gleam run -- ~/dev/nixpkgs/master/pkgs/applications/editors/vim/plugins/vim-plugin-names out
+jq 'to_entries | sort_by(.value) | reverse | from_entries' out > result.json
 ```
 
-Further documentation can be found at <https://hexdocs.pm/count_vimplugins_stars>.
-
-## Development
-
+Run tests:
 ```sh
-gleam run   # Run the project
-gleam test  # Run the tests
+gleam test
 ```
