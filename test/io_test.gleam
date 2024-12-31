@@ -1,4 +1,4 @@
-import count_vimplugins_stars/io.{read_file}
+import count_vimplugins_stars/io.{read_file, read_input_file}
 import gleeunit/should
 import simplifile
 import temporary

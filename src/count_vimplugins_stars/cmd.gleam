@@ -1,5 +1,4 @@
 import count_vimplugins_stars/logic.{do_work}
-import gleam/io
 import glint
 
 pub fn cmd() -> glint.Command(Nil) {
