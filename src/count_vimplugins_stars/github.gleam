@@ -2,7 +2,6 @@ import gleam/dynamic.{field}
 import gleam/hackney
 import gleam/http
 import gleam/http/request
-import gleam/io
 import gleam/json
 import gleam/result
 import gleam/string
