@@ -1,4 +1,4 @@
-import count_vimplugins_stars/logic.{read_input_file}
+import count_vimplugins_stars/logic.{do_work}
 import gleam/io
 import glint
 
@@ -14,8 +14,6 @@ pub fn cmd() -> glint.Command(Nil) {
   let input_file = input_file_arg(named_args)
   let output_file = output_file_arg(named_args)
 
-  let plugin_urls = read_input_file(input_file)
-
-  io.debug(plugin_urls)
+  do_work(input_file, output_file)
   Nil
 }

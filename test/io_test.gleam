@@ -20,3 +20,22 @@ pub fn read_file_error_test() {
   |> should.be_error()
   |> should.equal("Error reading file " <> file <> ", error: Enoent")
 }
+
+pub fn read_input_file_test() {
+  use file <- temporary.create(temporary.file())
+  let assert Ok(_) =
+    simplifile.write(
+      "repo,branch,alias\n"
+        <> "https://github.com/euclidianAce/BetterLua.vim/,,\n"
+        <> "https://github.com/vim-scripts/BufOnly.vim/,,\n"
+        <> "https://github.com/jackMort/ChatGPT.nvim/,,\n",
+      to: file,
+    )
+
+  read_input_file(file)
+  |> should.equal([
+    "https://github.com/euclidianAce/BetterLua.vim/",
+    "https://github.com/vim-scripts/BufOnly.vim/",
+    "https://github.com/jackMort/ChatGPT.nvim/",
+  ])
+}
