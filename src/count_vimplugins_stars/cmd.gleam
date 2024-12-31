@@ -1,5 +1,7 @@
 import count_vimplugins_stars/logic.{do_work}
+import count_vimplugins_stars/print_results
 import envoy
+import gleam/dict
 import glint
 
 pub fn cmd() -> glint.Command(Nil) {
@@ -15,6 +17,7 @@ pub fn cmd() -> glint.Command(Nil) {
   let output_file = output_file_arg(named_args)
 
   let assert Ok(github_token) = envoy.get("GITHUB_TOKEN")
-  let _ = do_work(input_file, output_file, github_token)
+  let results = do_work(input_file, output_file, github_token)
+  print_results.print_results(dict.values(results))
   Nil
 }

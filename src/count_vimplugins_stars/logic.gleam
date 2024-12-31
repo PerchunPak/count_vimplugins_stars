@@ -28,7 +28,11 @@ fn fetch_url(
   Ok(fetched)
 }
 
-pub fn do_work(input_file: String, output_file: String, github_token: String) {
+pub fn do_work(
+  input_file: String,
+  output_file: String,
+  github_token: String,
+) -> dict.Dict(String, Int) {
   let plugin_urls = read_input_file(input_file)
   let already_computed =
     result.lazy_unwrap(read_output_file(output_file), fn() {
